@@ -1,16 +1,105 @@
-# React + Vite
+# 🌙 SleepSync
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium sleep tracking web application that helps users visualize their sleep patterns for better rest and wellness.
 
-Currently, two official plugins are available:
+![SleepSync](https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react)
+![Vite](https://img.shields.io/badge/Vite-7.2-646cff?style=for-the-badge&logo=vite)
+![Chart.js](https://img.shields.io/badge/Chart.js-4.4-ff6384?style=for-the-badge&logo=chartdotjs)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **Sleep Logging**: Track daily sleep and wake times with automatic midnight-crossing calculations
+- **Visual Analytics**: Beautiful gradient bar charts showing sleep duration trends
+- **Statistics Dashboard**: Real-time insights into average sleep, consistency, and patterns
+- **Data Persistence**: Local storage ensures your data is saved across sessions
+- **Premium UI/UX**: Glassmorphism effects, smooth animations, and gradient accents
+- **Responsive Design**: Optimized for all screen sizes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎨 Design Highlights
 
-## Expanding the ESLint configuration
+- **Glassmorphism**: Frosted glass cards with backdrop blur
+- **Gradient Accents**: Purple-to-indigo gradients throughout
+- **Micro-animations**: Smooth fade-in, slide-up, and hover effects
+- **Dark Theme**: Deep night theme optimized for evening use
+- **Empty States**: Beautiful illustrated placeholders
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 16+ and npm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Rahul-14507/SleepSync.git
+
+# Navigate to project directory
+cd SleepSync
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Visit `http://localhost:5173` to see the app in action.
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+## 🛠️ Tech Stack
+
+- **Framework**: React 18 with Vite
+- **Styling**: Vanilla CSS with custom design system
+- **Charts**: Chart.js with react-chartjs-2
+- **Icons**: Lucide React
+- **Date Handling**: date-fns
+- **Storage**: localStorage API
+
+## 📦 Project Structure
+
+```
+SleepSync/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.jsx      # Main dashboard view
+│   │   ├── Layout.jsx          # App layout wrapper
+│   │   ├── SleepChart.jsx      # Chart visualization
+│   │   ├── SleepForm.jsx       # Sleep entry form
+│   │   └── StatsCard.jsx       # Reusable stat card
+│   ├── context/
+│   │   └── SleepContext.jsx    # Global state management
+│   ├── App.jsx                 # Root component
+│   ├── main.jsx                # Entry point
+│   └── index.css               # Global styles
+├── public/
+└── package.json
+```
+
+## 🌐 Deployment
+
+This app is optimized for deployment on Vercel:
+
+1. Push your code to GitHub
+2. Import the repository in Vercel
+3. Deploy with default settings
+
+No environment variables or database setup required!
+
+## 📝 License
+
+MIT License - feel free to use this project for learning or personal use.
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+**Built with ❤️ for better sleep**
