@@ -17,9 +17,9 @@ import {
   isWithinInterval,
 } from "date-fns";
 
-const SleepSummary = () => {
+const SleepSummary = ({ initialPeriod = "weekly" }) => {
   const { logs } = useSleep();
-  const [period, setPeriod] = useState("weekly"); // 'weekly' or 'monthly'
+  const [period, setPeriod] = useState(initialPeriod); // 'weekly' or 'monthly'
 
   const summary = useMemo(() => {
     if (logs.length === 0) return null;
@@ -405,7 +405,7 @@ const SleepSummary = () => {
                 margin: 0,
               }}
             >
-              Best Night
+              Best Sleep
             </h4>
           </div>
           <p
