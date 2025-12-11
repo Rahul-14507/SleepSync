@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap");
 
-:root {
+/* Dark Theme (Default) */
+:root[data-theme="dark"] {
   /* Colors - Enhanced Night Theme */
   --color-bg-primary: #0a0e1a;
   --color-bg-secondary: #0f1729;
@@ -30,6 +31,55 @@
     rgba(99, 102, 241, 0.05) 100%
   );
 
+  --body-gradient: linear-gradient(
+    180deg,
+    #0a0e1a 0%,
+    #0f1729 50%,
+    #1a1f35 100%
+  );
+}
+
+/* Light Theme */
+:root[data-theme="light"] {
+  /* Colors - Light Theme */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-bg-elevated: #ffffff;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c3aed;
+  --color-accent-light: #a78bfa;
+  --color-accent-soft: rgba(139, 92, 246, 0.08);
+  --color-accent-glow: rgba(139, 92, 246, 0.2);
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  --gradient-card: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.03) 0%,
+    rgba(99, 102, 241, 0.03) 100%
+  );
+
+  --body-gradient: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f8fafc 50%,
+    #f1f5f9 100%
+  );
+}
+
+/* Default fallback */
+:root {
   /* Spacing & Layout */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -46,6 +96,12 @@
   --shadow-glow: 0 0 40px var(--color-accent-glow);
 }
 
+[data-theme="light"] {
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -54,13 +110,14 @@
 
 body {
   font-family: var(--font-sans);
-  background: linear-gradient(180deg, #0a0e1a 0%, #0f1729 50%, #1a1f35 100%);
+  background: var(--body-gradient);
   background-attachment: fixed;
   color: var(--color-text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -115,6 +172,11 @@ button {
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] .card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.15);
 }
 
 .card::before {
@@ -293,6 +355,16 @@ textarea {
   transition: all 0.2s ease;
 }
 
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="time"],
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="number"],
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: white;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
 input[type="date"]:focus,
 input[type="time"]:focus,
 input[type="text"]:focus,
@@ -303,6 +375,12 @@ textarea:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   background: rgba(15, 23, 41, 1);
+}
+
+[data-theme="light"] input:focus,
+[data-theme="light"] textarea:focus,
+[data-theme="light"] select:focus {
+  background: white;
 }
 
 /* Scrollbar */

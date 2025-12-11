@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { generateSensorData } from "../utils/sensorData";
 
 const SleepContext = createContext();
 
@@ -32,12 +33,16 @@ export const SleepProvider = ({ children }) => {
   }, [logs]);
 
   const addLog = (newLog) => {
+    // Generate mock sensor data based on sleep duration
+    const sensorData = generateSensorData(newLog.duration);
+
     setLogs((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
         createdAt: new Date().toISOString(),
         ...newLog,
+        sensorData, // Add mock sensor data
       },
     ]);
   };

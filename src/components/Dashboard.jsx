@@ -3,6 +3,9 @@ import { useSleep } from "../context/SleepContext";
 import SleepForm from "./SleepForm";
 import SleepChart from "./SleepChart";
 import StatsCard from "./StatsCard";
+import SleepRecommendations from "./SleepRecommendations";
+import SensorMetrics from "./SensorMetrics";
+import SleepSummary from "./SleepSummary";
 import { Clock, TrendingUp, Activity, Trash2 } from "lucide-react";
 import { format, parseISO } from "date-fns";
 
@@ -232,6 +235,17 @@ const Dashboard = () => {
           <SleepForm />
         </div>
       </div>
+
+      {/* Sleep Recommendations */}
+      <SleepRecommendations />
+
+      {/* Sensor Metrics - Show only for latest entry */}
+      {logs.length > 0 && logs[logs.length - 1].sensorData && (
+        <SensorMetrics sensorData={logs[logs.length - 1].sensorData} />
+      )}
+
+      {/* Weekly/Monthly Summary */}
+      <SleepSummary />
     </div>
   );
 };

@@ -1,7 +1,10 @@
 import React from "react";
-import { Moon, Sparkles } from "lucide-react";
+import { Moon, Sparkles, Sun } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const Layout = ({ children }) => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <div
       style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
@@ -65,19 +68,64 @@ const Layout = ({ children }) => {
               </p>
             </div>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <Sparkles
-              style={{ width: "1rem", height: "1rem", color: "#8b5cf6" }}
-            />
-            <span
-              style={{
-                fontSize: "0.875rem",
-                color: "#94a3b8",
-                fontWeight: 500,
-              }}
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
             >
-              Premium
-            </span>
+              <Sparkles
+                style={{ width: "1rem", height: "1rem", color: "#8b5cf6" }}
+              />
+              <span
+                style={{
+                  fontSize: "0.875rem",
+                  color: "#94a3b8",
+                  fontWeight: 500,
+                }}
+              >
+                Premium
+              </span>
+            </div>
+            <button
+              onClick={toggleTheme}
+              style={{
+                background: "rgba(139, 92, 246, 0.1)",
+                border: "1px solid rgba(139, 92, 246, 0.2)",
+                borderRadius: "0.5rem",
+                padding: "0.5rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(139, 92, 246, 0.2)";
+                e.currentTarget.style.borderColor = "rgba(139, 92, 246, 0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(139, 92, 246, 0.1)";
+                e.currentTarget.style.borderColor = "rgba(139, 92, 246, 0.2)";
+              }}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun
+                  style={{
+                    width: "1.125rem",
+                    height: "1.125rem",
+                    color: "#a78bfa",
+                  }}
+                />
+              ) : (
+                <Moon
+                  style={{
+                    width: "1.125rem",
+                    height: "1.125rem",
+                    color: "#a78bfa",
+                  }}
+                />
+              )}
+            </button>
           </div>
         </div>
       </header>
