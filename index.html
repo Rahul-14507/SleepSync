@@ -1,13 +1,488 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sleep-sync</title>
+    <title>SleepSync - Premium Sleep Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Scripts (CDNs) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Header -->
+    <header class="app-header">
+      <div
+        class="container"
+        style="
+          height: 4rem;
+          display: flex;
+          alignitems: center;
+          justifycontent: space-between;
+        "
+      >
+        <div style="display: flex; alignitems: center; gap: 0.75rem">
+          <div
+            class="glow"
+            style="
+              background: var(--gradient-accent);
+              padding: 0.5rem;
+              border-radius: 0.75rem;
+            "
+          >
+            <i
+              data-lucide="moon"
+              style="width: 1.5rem; height: 1.5rem; color: white"
+            ></i>
+          </div>
+          <h1
+            class="logo-text"
+            style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em"
+          >
+            SleepSync
+          </h1>
+        </div>
+        <button
+          id="theme-toggle"
+          class="btn-ghost"
+          style="padding: 0.5rem; border-radius: 9999px"
+        >
+          <i
+            data-lucide="sun"
+            id="theme-icon"
+            style="width: 1.25rem; height: 1.25rem"
+          ></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem">
+      <!-- Hero Section -->
+      <div id="hero-section" class="hero-section fade-in">
+        <h2 class="hero-title">Your Sleep Dashboard</h2>
+        <p class="hero-desc">
+          Track your sleep patterns, visualize trends, and optimize your rest
+          for better wellness.
+        </p>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs fade-in" style="margin-bottom: 2rem">
+        <button class="nav-tab active" data-tab="dashboard">
+          <i
+            data-lucide="layout-dashboard"
+            style="width: 1rem; height: 1rem"
+          ></i>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-tab" data-tab="weekly">
+          <i data-lucide="calendar" style="width: 1rem; height: 1rem"></i>
+          <span>Weekly</span>
+        </button>
+        <button class="nav-tab" data-tab="monthly">
+          <i data-lucide="calendar-range" style="width: 1rem; height: 1rem"></i>
+          <span>Monthly</span>
+        </button>
+      </div>
+
+      <!-- VIEW: DASHBOARD -->
+      <div id="view-dashboard" class="space-y-8">
+        <!-- Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 fade-in">
+          <!-- Avg Sleep -->
+          <div class="stats-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <span
+                style="
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: var(--color-text-secondary);
+                "
+                >Avg. Sleep</span
+              >
+              <div
+                style="
+                  padding: 0.5rem;
+                  background: rgba(139, 92, 246, 0.1);
+                  border-radius: 0.5rem;
+                  color: var(--color-accent);
+                "
+              >
+                <i data-lucide="clock" style="width: 1rem; height: 1rem"></i>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-text-primary);
+                margin-bottom: 0.25rem;
+              "
+              id="stat-avg-sleep"
+            >
+              0h
+            </div>
+            <div style="font-size: 0.875rem; color: var(--color-text-muted)">
+              Per night
+            </div>
+          </div>
+          <!-- Consistency -->
+          <div class="stats-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <span
+                style="
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: var(--color-text-secondary);
+                "
+                >Consistency</span
+              >
+              <div
+                style="
+                  padding: 0.5rem;
+                  background: rgba(139, 92, 246, 0.1);
+                  border-radius: 0.5rem;
+                  color: var(--color-accent);
+                "
+              >
+                <i data-lucide="activity" style="width: 1rem; height: 1rem"></i>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-text-primary);
+                margin-bottom: 0.25rem;
+              "
+              id="stat-consistency"
+            >
+              N/A
+            </div>
+            <div style="font-size: 0.875rem; color: var(--color-text-muted)">
+              Sleep pattern
+            </div>
+          </div>
+          <!-- Total Logs -->
+          <div class="stats-card">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <span
+                style="
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: var(--color-text-secondary);
+                "
+                >Total Logs</span
+              >
+              <div
+                style="
+                  padding: 0.5rem;
+                  background: rgba(139, 92, 246, 0.1);
+                  border-radius: 0.5rem;
+                  color: var(--color-accent);
+                "
+              >
+                <i
+                  data-lucide="trending-up"
+                  style="width: 1rem; height: 1rem"
+                ></i>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-text-primary);
+                margin-bottom: 0.25rem;
+              "
+              id="stat-total-logs"
+            >
+              0
+            </div>
+            <div style="font-size: 0.875rem; color: var(--color-text-muted)">
+              Entries tracked
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2"
+          style="gap: 2rem; align-items: start"
+        >
+          <!-- Left Column (Chart & History) -->
+          <div class="space-y-8">
+            <!-- Chart -->
+            <div class="card fade-in" style="min-height: 20rem">
+              <div style="margin-bottom: 1.5rem">
+                <h3
+                  style="
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  Weekly Overview
+                </h3>
+                <p style="font-size: 0.875rem; color: #94a3b8; margin: 0">
+                  Last 7 sleep sessions
+                </p>
+              </div>
+              <div class="chart-container">
+                <canvas id="sleepChart"></canvas>
+              </div>
+              <div
+                id="chart-empty-state"
+                class="hidden"
+                style="
+                  flex-direction: column;
+                  alignitems: center;
+                  justifycontent: center;
+                  min-height: 14rem;
+                  text-align: center;
+                "
+              >
+                <div
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      rgba(139, 92, 246, 0.2) 0%,
+                      rgba(99, 102, 241, 0.2) 100%
+                    );
+                    padding: 1.5rem;
+                    border-radius: 1rem;
+                    margin-bottom: 1.5rem;
+                    display: inline-flex;
+                  "
+                >
+                  <i
+                    data-lucide="bar-chart-3"
+                    style="width: 3rem; height: 3rem; color: #a78bfa"
+                  ></i>
+                </div>
+                <p
+                  style="
+                    color: #94a3b8;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                  "
+                >
+                  No sleep data yet
+                </p>
+                <p style="color: #64748b; font-size: 0.875rem; margin: 0">
+                  Log your first sleep to see beautiful patterns
+                </p>
+              </div>
+            </div>
+
+            <!-- Recent History -->
+            <div class="card fade-in">
+              <div style="margin-bottom: 1.5rem">
+                <h3
+                  style="
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  Recent History
+                </h3>
+                <p style="font-size: 0.875rem; color: #94a3b8; margin: 0">
+                  Your latest sleep logs
+                </p>
+              </div>
+              <div id="history-list" class="space-y-4">
+                <!-- Items injected by JS -->
+                <div
+                  style="text-align: center; padding: 3rem 1rem; color: #64748b"
+                  id="history-empty"
+                >
+                  <p style="font-size: 0.875rem; margin: 0">
+                    No sleep logs yet.
+                  </p>
+                  <p style="font-size: 0.75rem; margin-top: 0.5rem">
+                    Start tracking to see your history.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (Form) -->
+          <div>
+            <div class="card sleep-form-card fade-in">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 1.5rem;
+                "
+              >
+                <div>
+                  <h3
+                    style="
+                      font-size: 1.5rem;
+                      font-weight: 700;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    Log Sleep
+                  </h3>
+                  <p style="font-size: 0.875rem; color: #94a3b8; margin: 0">
+                    Track your nightly rest
+                  </p>
+                </div>
+                <div
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      #8b5cf6 0%,
+                      #6366f1 100%
+                    );
+                    padding: 0.5rem;
+                    border-radius: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <i
+                    data-lucide="sparkles"
+                    style="width: 1.25rem; height: 1.25rem; color: white"
+                  ></i>
+                </div>
+              </div>
+
+              <form id="sleep-form" class="space-y-4">
+                <div>
+                  <label class="form-label">Date</label>
+                  <input type="date" id="entry-date" required />
+                </div>
+                <div class="grid grid-cols-2" style="gap: 1rem">
+                  <div>
+                    <label
+                      class="form-label"
+                      style="display: flex; align-items: center; gap: 0.375rem"
+                    >
+                      <i
+                        data-lucide="moon"
+                        style="width: 0.875rem; height: 0.875rem"
+                      ></i>
+                      Bedtime
+                    </label>
+                    <input type="time" id="entry-bedtime" required />
+                  </div>
+                  <div>
+                    <label
+                      class="form-label"
+                      style="display: flex; align-items: center; gap: 0.375rem"
+                    >
+                      <i
+                        data-lucide="sun"
+                        style="width: 0.875rem; height: 0.875rem"
+                      ></i>
+                      Wake Up
+                    </label>
+                    <input type="time" id="entry-waketime" required />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  id="add-entry-btn"
+                  class="btn btn-primary"
+                  style="width: 100%; margin-top: 1.5rem"
+                  disabled
+                >
+                  <i
+                    data-lucide="plus"
+                    style="
+                      width: 1.125rem;
+                      height: 1.125rem;
+                      margin-right: 0.5rem;
+                    "
+                  ></i>
+                  Add Sleep Entry
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sleep Recommendations -->
+        <div id="recommendations-container" class="hidden">
+          <div class="card fade-in" style="margin-top: 2rem">
+            <div style="margin-bottom: 1.5rem">
+              <h3
+                style="
+                  font-size: 1.25rem;
+                  font-weight: 700;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                💡 Sleep Hygiene Tips
+              </h3>
+              <p
+                style="
+                  font-size: 0.875rem;
+                  color: var(--color-text-secondary);
+                  margin: 0;
+                "
+              >
+                Personalized recommendations based on your sleep data
+              </p>
+            </div>
+            <div
+              id="recommendations-list"
+              class="grid grid-cols-1 md:grid-cols-2"
+              style="gap: 1rem"
+            >
+              <!-- JS Injected -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sensor Metrics -->
+        <div id="sensor-metrics-container" class="hidden">
+          <!-- JS Injected -->
+        </div>
+      </div>
+
+      <!-- VIEW: WEEKLY SUMMARY -->
+      <div id="view-weekly" class="hidden">
+        <!-- JS Injected Summary -->
+      </div>
+
+      <!-- VIEW: MONTHLY SUMMARY -->
+      <div id="view-monthly" class="hidden">
+        <!-- JS Injected Summary -->
+      </div>
+    </main>
+
+    <script src="script.js"></script>
   </body>
 </html>

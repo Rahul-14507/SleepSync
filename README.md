@@ -1,10 +1,6 @@
 # 🌙 SleepSync
 
-A premium sleep tracking web application that helps users visualize their sleep patterns for better rest and wellness.
-
-![SleepSync](https://img.shields.io/badge/React-18.3-61dafb?style=for-the-badge&logo=react)
-![Vite](https://img.shields.io/badge/Vite-7.2-646cff?style=for-the-badge&logo=vite)
-![Chart.js](https://img.shields.io/badge/Chart.js-4.4-ff6384?style=for-the-badge&logo=chartdotjs)
+A premium sleep tracking web application that helps users visualize their sleep patterns for better rest and wellness. Now built with pure Vanilla JavaScript, HTML, and CSS for maximum performance and simplicity.
 
 ## ✨ Features
 
@@ -25,61 +21,36 @@ A premium sleep tracking web application that helps users visualize their sleep 
 
 ## 🚀 Quick Start
 
-### Prerequisites
+No installation or build steps required!
 
-- Node.js 16+ and npm
+1. **Clone the repository**
 
-### Installation
+   ```bash
+   git clone https://github.com/Rahul-14507/SleepSync.git
+   cd SleepSync
+   ```
 
-```bash
-# Clone the repository
-git clone https://github.com/Rahul-14507/SleepSync.git
-
-# Navigate to project directory
-cd SleepSync
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Visit `http://localhost:5173` to see the app in action.
-
-### Build for Production
-
-```bash
-npm run build
-```
+2. **Run the App**
+   Simply open `index.html` in your browser.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 18 with Vite
-- **Styling**: Vanilla CSS with custom design system
-- **Charts**: Chart.js with react-chartjs-2
-- **Icons**: Lucide React
-- **Date Handling**: date-fns
-- **Storage**: localStorage API
+- **HTML5** - Semantic structure
+- **CSS3** - Custom variables, glassmorphism, animations (no frameworks)
+- **JavaScript** - Vanilla ES6+ (no build step)
+- **External Libraries** (via CDN):
+  - Lucide Icons (Visuals)
+  - Chart.js (Data visualization)
+  - date-fns (Date manipulation)
 
-## 📦 Project Structure
+## 📂 Project Structure
 
 ```
 SleepSync/
-├── src/
-│   ├── components/
-│   │   ├── Dashboard.jsx      # Main dashboard view
-│   │   ├── Layout.jsx          # App layout wrapper
-│   │   ├── SleepChart.jsx      # Chart visualization
-│   │   ├── SleepForm.jsx       # Sleep entry form
-│   │   └── StatsCard.jsx       # Reusable stat card
-│   ├── context/
-│   │   └── SleepContext.jsx    # Global state management
-│   ├── App.jsx                 # Root component
-│   ├── main.jsx                # Entry point
-│   └── index.css               # Global styles
-├── public/
-└── package.json
+├── index.html      # Main application structure
+├── style.css       # All styles and themes
+├── script.js       # App logic, charts, and data handling
+└── README.md       # Project documentation
 ```
 
 ## 🌐 Deployment
@@ -88,17 +59,11 @@ This app is optimized for deployment on Vercel:
 
 1. Push your code to GitHub
 2. Import the repository in Vercel
-3. Deploy with default settings
-
-No environment variables or database setup required!
+3. Deploy with default settings (no build command or output directory needed)
 
 ## 📝 License
 
 MIT License - feel free to use this project for learning or personal use.
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
 
